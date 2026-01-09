@@ -36,8 +36,8 @@ def handler(event: dict, context) -> dict:
         user_id = body.get('userId', 'Не указан')
         amount = body.get('amount', 0)
         
-        bot_token = '8511097118:AAGuDK-PhqXlhZoJZGMXQ4e4Yw_R1S7ab8c'
-        chat_id = '1792863673'
+        bot_token = os.environ.get('TELEGRAM_BOT_TOKEN', '8511097118:AAGuDK-PhqXlhZoJZGMXQ4e4Yw_R1S7ab8c')
+        chat_id = os.environ.get('TELEGRAM_CHAT_ID', '1792863673')
         
         formatted_amount = f"{amount:,}".replace(',', ' ')
         current_time = datetime.now().strftime('%d.%m.%Y %H:%M:%S')
@@ -87,6 +87,19 @@ def handler(event: dict, context) -> dict:
                     })
                 }
     
+    except urllib.error.HTTPError as e:
+        error_body = e.read().decode('utf-8') if e.fp else str(e)
+        return {
+            'statusCode': 500,
+            'headers': {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            'body': json.dumps({
+                'success': False,
+                'error': f'Telegram API Error: {e.code} - {error_body}'
+            })
+        }
     except Exception as e:
         return {
             'statusCode': 500,
