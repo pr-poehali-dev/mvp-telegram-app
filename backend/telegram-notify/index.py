@@ -43,21 +43,28 @@ def handler(event: dict, context) -> dict:
         current_time = datetime.now().strftime('%d.%m.%Y %H:%M:%S')
         
         message = (
-            f"Новая заявка в Mkbroker!\n\n"
-            f"Email: {email}\n"
-            f"ID пользователя: {user_id}\n"
-            f"Сумма: {formatted_amount} руб\n"
-            f"Дата и время: {current_time}"
+            f"🔔 Новая заявка в Mkbroker!\n\n"
+            f"📧 Email: {email}\n"
+            f"🆔 ID: {user_id}\n"
+            f"💰 Сумма: {formatted_amount} руб\n"
+            f"📅 {current_time}"
         )
         
         telegram_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
         
-        data = urllib.parse.urlencode({
+        payload = {
             'chat_id': chat_id,
             'text': message
-        }).encode('utf-8')
+        }
         
-        req = urllib.request.Request(telegram_url, data=data, method='POST')
+        data = json.dumps(payload).encode('utf-8')
+        
+        req = urllib.request.Request(
+            telegram_url,
+            data=data,
+            headers={'Content-Type': 'application/json'},
+            method='POST'
+        )
         
         with urllib.request.urlopen(req) as response:
             telegram_response = json.loads(response.read().decode('utf-8'))

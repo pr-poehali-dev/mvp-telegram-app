@@ -11,15 +11,22 @@ interface Application {
   amount: number;
   date: string;
   status: 'pending' | 'approved' | 'rejected';
+  email: string;
 }
 
 export default function Dashboard() {
   const [amount, setAmount] = useState([1000000]);
-  const [applications, setApplications] = useState<Application[]>([
-    { id: 1, amount: 500000, date: '2024-01-15', status: 'approved' },
-    { id: 2, amount: 2500000, date: '2024-01-10', status: 'pending' },
-  ]);
   const { toast } = useToast();
+  const currentUserEmail = localStorage.getItem('userEmail') || '';
+  
+  const [applications, setApplications] = useState<Application[]>(() => {
+    const saved = localStorage.getItem('applications');
+    if (saved) {
+      const all = JSON.parse(saved);
+      return all.filter((app: Application) => app.email === currentUserEmail);
+    }
+    return [];
+  });
 
   const formatAmount = (value: number) => {
     return new Intl.NumberFormat('ru-RU', {
@@ -35,9 +42,13 @@ export default function Dashboard() {
       amount: amount[0],
       date: new Date().toISOString().split('T')[0],
       status: 'pending',
+      email: currentUserEmail,
     };
     
-    setApplications([newApplication, ...applications]);
+    const savedApplications = JSON.parse(localStorage.getItem('applications') || '[]');
+    const updatedApplications = [newApplication, ...savedApplications];
+    localStorage.setItem('applications', JSON.stringify(updatedApplications));
+    setApplications(updatedApplications.filter(app => app.email === currentUserEmail));
     
     try {
       const response = await fetch('https://functions.poehali.dev/7818bf80-3ac1-44ab-9f66-a7146d55dc34', {

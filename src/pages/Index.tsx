@@ -158,18 +158,31 @@ export default function Index() {
         </section>
 
         <footer className="border-t border-primary/20 mt-20">
-          <div className="max-w-7xl mx-auto px-6 py-8 flex items-center justify-between">
-            <p className="text-muted-foreground">© 2024 Mkbroker. Все права защищены.</p>
-            <div className="flex gap-4">
-              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
-                О нас
-              </Button>
-              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
-                Контакты
-              </Button>
-              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
-                Помощь
-              </Button>
+          <div className="max-w-7xl mx-auto px-6 py-8">
+            <div className="grid md:grid-cols-3 gap-8 mb-6">
+              <div>
+                <h3 className="font-semibold text-lg mb-3 text-primary">О нас</h3>
+                <p className="text-muted-foreground mb-2">Email для связи:</p>
+                <a href="mailto:stepak543@gmail.com" className="text-foreground hover:text-primary transition-colors">
+                  stepak543@gmail.com
+                </a>
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg mb-3 text-primary">Контакты</h3>
+                <p className="text-muted-foreground mb-2">Телефон:</p>
+                <a href="tel:+79181282889" className="text-foreground hover:text-primary transition-colors">
+                  8 918 128 28 89
+                </a>
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg mb-3 text-primary">Помощь</h3>
+                <p className="text-muted-foreground">
+                  Мы всегда готовы помочь с вашими вопросами
+                </p>
+              </div>
+            </div>
+            <div className="border-t border-primary/20 pt-6 text-center">
+              <p className="text-muted-foreground">© 2024 Mkbroker. Все права защищены.</p>
             </div>
           </div>
         </footer>
