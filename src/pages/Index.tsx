@@ -38,7 +38,7 @@ export default function Index() {
               <Icon name="Sparkles" size={24} className="text-white" />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              CreditApp
+              Mkbroker
             </span>
           </div>
           <Button 
@@ -167,7 +167,7 @@ export default function Index() {
 
         <footer className="border-t border-primary/20 mt-20">
           <div className="max-w-7xl mx-auto px-6 py-8 flex items-center justify-between">
-            <p className="text-muted-foreground">© 2024 CreditApp. Все права защищены.</p>
+            <p className="text-muted-foreground">© 2024 Mkbroker. Все права защищены.</p>
             <div className="flex gap-4">
               <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
                 О нас
