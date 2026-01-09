@@ -1,0 +1,19 @@
+{
+  "tests": [
+    {
+      "name": "Test telegram notification",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "email": "test@example.com",
+        "userId": "12345",
+        "amount": 1000000
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

@@ -17,6 +17,8 @@ export default function Login() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
+    localStorage.setItem('userEmail', email);
+    
     if (isLogin) {
       toast({
         title: "Вход выполнен! ✅",

@@ -29,7 +29,7 @@ export default function Dashboard() {
     }).format(value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const newApplication: Application = {
       id: applications.length + 1,
       amount: amount[0],
@@ -39,10 +39,37 @@ export default function Dashboard() {
     
     setApplications([newApplication, ...applications]);
     
-    toast({
-      title: "Заявка отправлена! 🚀",
-      description: `Ваша заявка на ${formatAmount(amount[0])} успешно создана.`,
-    });
+    try {
+      const response = await fetch('https://functions.poehali.dev/7818bf80-3ac1-44ab-9f66-a7146d55dc34', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: localStorage.getItem('userEmail') || 'test@example.com',
+          userId: Math.floor(Math.random() * 100000),
+          amount: amount[0],
+        }),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Заявка отправлена! 🚀",
+          description: `Ваша заявка на ${formatAmount(amount[0])} успешно создана. Уведомление отправлено.`,
+        });
+      } else {
+        toast({
+          title: "Заявка создана",
+          description: `Заявка на ${formatAmount(amount[0])} создана, но уведомление не отправлено.`,
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Заявка создана",
+        description: `Заявка на ${formatAmount(amount[0])} создана локально.`,
+      });
+    }
   };
 
   const getStatusIcon = (status: string) => {

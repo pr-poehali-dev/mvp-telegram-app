@@ -80,14 +80,6 @@ export default function Index() {
               Начать работу
               <Icon name="ArrowRight" size={20} className="ml-2" />
             </Button>
-            <Button 
-              size="lg"
-              variant="outline"
-              className="border-primary/30 hover:bg-primary/10 text-lg px-8 py-6"
-            >
-              <Icon name="Play" size={20} className="mr-2" />
-              Как это работает
-            </Button>
           </div>
         </section>
 
